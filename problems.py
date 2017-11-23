@@ -87,12 +87,21 @@ class BusProblem(Problem):
 
     # Get the new state created after going from one state to a new location (on map)
     def _getNewStateAtLoc(self, previousState, newLoc):
-        # TODO : Implement
         newWaiting = []
         newOnBus = []
-        newFinished = []
+        newFinished = [order for order in self.orders if order not in previousState.ordersOnBus and order not in previousState.waitingOrders]
 
-        raise NotImplementedError
+        for waiting in previousState.waitingOrders:
+            if waiting[0] == newLoc:
+                newOnBus.append(waiting)
+            else:
+                newWaiting.append(waiting)
+
+        for onbus in previousState.ordersOnBus:
+            if onbus[1] ==  newLoc:
+                newFinished.append(onbus)
+            else:
+                newOnBus.append(onbus)
 
         return BusState(newLoc, newWaiting, newOnBus, newFinished)
 

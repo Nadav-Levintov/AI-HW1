@@ -41,5 +41,7 @@ class BusState(State):
                 (other.junctionIdx, other.waitingOrders, other.ordersOnBus))
 
     def isGoal(self):
-        # TODO : Implement
-        raise NotImplementedError
+        if self.waitingOrders == [] and self.ordersOnBus == []:
+            return True
+        else:
+            return False
