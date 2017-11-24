@@ -50,21 +50,50 @@ class AStar:
         open_set = {source: self.heuristic.estimate(problem, problem.initialState)}
 
         developed = 0
-
-        # TODO : Implement astar.
-        # Tips:
-        # - To get the successor states of a state with their costs, use: problem.expandWithCosts(state, self.cost)
-        # - You should break your code into methods (two such stubs are written below)
-        # - Don't forget to cache your result between returning it - TODO
-
-        # TODO : VERY IMPORTANT: must return a tuple of (path, g_score(goal), h(I), developed)
-        return ([], -1, -1, developed)
+        hi = open_set[source]
+        while open_set != {}:
+            next = self._getOpenStateWithLowest_f_score(open_set)
+            del open_set[next]
+            developed+=1
+            closed_set.add(next)
+            if(problem.isGoal(next)):
+                self._storeInCache(problem, (self._reconstructPath(parents, next), g_score[next], hi, developed))
+                return (self._reconstructPath(parents, next), g_score[next], hi, developed)
+            for succ, curr_cost in problem.expandWithCosts(next,self.cost):
+                new_g = g_score[next] + curr_cost
+                if succ in open_set:
+                    if new_g < g_score[succ]:
+                        g_score[succ] = new_g
+                        parents[succ] = next
+                        open_set[succ] = g_score[succ] + self.heuristic.estimate(problem, succ)
+                else:
+                    if succ in closed_set:
+                        if new_g < g_score[succ]:
+                            g_score[succ] = new_g
+                            parents[succ] = next
+                            closed_set.remove(succ)
+                            open_set[succ] = g_score[succ] + self.heuristic.estimate(problem, succ)
+                    else:
+                        open_set[succ] = new_g + self.heuristic.estimate(problem, succ)
+                        g_score[succ] = new_g
+                        parents[succ] = next
 
     def _getOpenStateWithLowest_f_score(self, open_set):
-        # TODO : Implement
-        raise NotImplementedError
+        min = sys.maxsize
+        res = None
+        for key, value in open_set.items():
+            if value < min:
+                min = value
+                res = key
+        return res
 
     # Reconstruct the path from a given goal by its parent and so on
     def _reconstructPath(self, parents, goal):
-        # TODO : Implement
-        raise NotImplementedError
+        res = []
+        ptr = goal
+        res.insert(0, ptr)
+        while ptr in parents.keys():
+            ptr = parents[ptr]
+            res.insert(0, ptr)
+        return res
+
