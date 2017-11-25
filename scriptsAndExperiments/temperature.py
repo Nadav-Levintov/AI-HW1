@@ -25,7 +25,6 @@ for pnt in X:
     for t in range:
         vector_sum = _calc_sum(X, t, alpha)
         pnt_vector.append(_cal_prob(pnt, alpha, t, vector_sum))
-    print(pnt_vector)
     plt.plot(range, pnt_vector)
 
 plt.axis([0, 5, 0, 1])
