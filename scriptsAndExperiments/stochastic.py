@@ -35,9 +35,26 @@ for i in range(REPEATS):
 
 print("\nDone!")
 
-# TODO : Part1 - Plot the diagram required in the instructions
+mono = results
+mono[0] = min([mono[0],greedyDistance])
+for i in range(1,REPEATS):
+    mono[i]=min([mono[i],mono[i-1]])
+
+
+
 from matplotlib import pyplot as plt
-raise NotImplementedError
+
+plt.plot(range(1,REPEATS+1),mono)
+plt.plot(range(1,REPEATS+1),[greedyDistance for x in mono])
+plt.legend(['stochastic','greedy best first'])
+plt.axis([0, REPEATS, 0.9*mono.min(), 1.1*mono.max()])
+#plt.legend([[greedyDistance for x in mono],mono],['greedy best first','stochastic'])
+plt.title('Length of solution by Number of Repeats')
+plt.xlabel('#Repeats')
+plt.ylabel('Solution Length')
+plt.grid(color='gray', linestyle=':', linewidth=1)
+plt.show()
+
 
 
 # TODO : Part2 - Remove the exit and perform the t-test
