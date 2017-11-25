@@ -11,7 +11,7 @@ class GreedyBestFirstSolver(GreedySolver):
     def _getNextState(self, problem, currState):
         if currState.isGoal():
             return None
-
+        self.visited.add(currState)
         successors = list(problem.expand(currState))
         unvisitedSuccessors = [s for s in successors if s not in self.visited]
         if len(unvisitedSuccessors) <= 0:
@@ -20,8 +20,6 @@ class GreedyBestFirstSolver(GreedySolver):
         for state in unvisitedSuccessors:
             if self._scorer.compute(currState,state) < self._scorer.compute(currState,bestState):
                 bestState = state
-            else:
-                self.visited.add(state)
-        self.visited.add(currState)
+
         return bestState
 
