@@ -54,11 +54,11 @@ class AStar:
         while open_set != {}:
             next = self._getOpenStateWithLowest_f_score(open_set)
             del open_set[next]
-            developed+=1
             closed_set.add(next)
             if(problem.isGoal(next)):
                 self._storeInCache(problem, (self._reconstructPath(parents, next), g_score[next], hi, developed))
                 return (self._reconstructPath(parents, next), g_score[next], hi, developed)
+            developed += 1
             for succ, curr_cost in problem.expandWithCosts(next,self.cost):
                 new_g = g_score[next] + curr_cost
                 if succ in open_set:

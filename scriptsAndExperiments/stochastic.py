@@ -1,3 +1,4 @@
+from scipy.stats import stats
 from consts import Consts
 from astar import AStar
 from ways import load_map_from_csv
@@ -58,4 +59,7 @@ plt.show()
 
 
 # TODO : Part2 - Remove the exit and perform the t-test
-raise NotImplementedError
+mean_result = np.mean(mono)
+std_result = np.std(mono)
+tmp, pvalue = stats.ttest_1samp(mono, greedyDistance)
+print(mean_result, std_result, pvalue)
