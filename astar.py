@@ -49,6 +49,7 @@ class AStar:
         g_score = {source: 0}
         open_set = {source: self.heuristic.estimate(problem, problem.initialState)}
 
+        #As seen in the lecture
         developed = 0
         hi = open_set[source]
         while open_set != {}:
