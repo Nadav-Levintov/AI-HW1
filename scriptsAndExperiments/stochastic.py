@@ -36,7 +36,7 @@ for i in range(REPEATS):
 
 print("\nDone!")
 
-mono = results
+mono = results.copy()
 mono[0] = min([mono[0],greedyDistance])
 for i in range(1,REPEATS):
     mono[i]=min([mono[i],mono[i-1]])
@@ -59,7 +59,7 @@ plt.show()
 
 
 # TODO : Part2 - Remove the exit and perform the t-test
-mean_result = np.mean(mono)
-std_result = np.std(mono)
-tmp, pvalue = stats.ttest_1samp(mono, greedyDistance)
+mean_result = np.mean(results)
+std_result = np.std(results)
+tmp, pvalue = stats.ttest_1samp(results, greedyDistance)
 print(mean_result, std_result, pvalue)
