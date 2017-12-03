@@ -2,6 +2,8 @@ from consts import Consts
 from ways import load_map_from_csv
 from problems import BusProblem
 from path import Path
+from matplotlib import use
+use("TkAgg")
 from matplotlib import pyplot as plt
 from ways.draw import plotPath, plotOrders
 from ways.tools import compute_distance
@@ -35,6 +37,6 @@ plt.title("Showing path")
 plt.show()
 
 # TODO : Print the path's length/distance in kilometers.
-print("Path length: {:.2f}km".format(-1))
+print("Path length: {:.2f}km".format(examplePath.getDistance() / 1000))
 
 
