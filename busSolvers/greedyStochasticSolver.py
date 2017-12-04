@@ -16,6 +16,8 @@ def _cal_prob(x_i, alpha, t, vector_sum):
     res /= vector_sum
     return res
 
+
+
 class GreedyStochasticSolver(GreedySolver):
     _TEMPERATURE_DECAY_FACTOR = None
     _INITIAL_TEMPERATURE = None
@@ -75,7 +77,7 @@ class GreedyStochasticSolver(GreedySolver):
     # Find the next state to develop
     def _getNextState(self, problem, currState):
         successors = list(problem.expand(currState))
-        P = self._getSuccessorsProbabilities(currState, successors)
+
 
 
         # You should look for a suitable function in numpy.random.

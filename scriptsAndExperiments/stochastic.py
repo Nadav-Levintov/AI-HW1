@@ -39,7 +39,7 @@ print("\nDone!")
 mono = results.copy()
 mono[0] = min([mono[0],greedyDistance])
 for i in range(1,REPEATS):
-    mono[i]=min([mono[i],mono[i-1]])
+    mono[i] = min([mono[i],mono[i-1]])
 
 
 
